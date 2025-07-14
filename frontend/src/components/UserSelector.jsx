@@ -8,7 +8,7 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
   const addUser = async () => {
     if (!newUser.trim()) return;
     try {
-      await fetch("https://leaderboard-1-fufn.onrender.com/api/users/api/user", {
+      await fetch("https://leaderboard-1-fufn.onrender.com/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newUser }),
