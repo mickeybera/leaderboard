@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
+//select user
 const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => {
   const [newUser, setNewUser] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -20,13 +21,13 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
       toast.error("Failed to add user");
     }
   };
-
+//delete user
   const deleteUser = async (id) => {
     const confirm = window.confirm("Are you sure you want to delete this user?");
     if (!confirm) return;
 
     try {
-      await fetch(`https://leaderboard-1-fufn.onrender.com${id}`, {
+      await fetch(`https://leaderboard-1-fufn.onrender.com/api/users/${id}`, {
         method: "DELETE",
       });
       toast.success("User deleted!");
