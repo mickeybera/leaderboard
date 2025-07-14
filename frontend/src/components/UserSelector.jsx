@@ -9,7 +9,7 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
   const addUser = async () => {
     if (!newUser.trim()) return;
     try {
-      await fetch("https://leaderboard-1-fufn.onrender.com/api/users", {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newUser }),
@@ -27,7 +27,7 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
     if (!confirm) return;
 
     try {
-      await fetch(`https://leaderboard-1-fufn.onrender.com/api/users/${id}`, {
+      await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users${id}`, {
         method: "DELETE",
       });
       toast.success("User deleted!");

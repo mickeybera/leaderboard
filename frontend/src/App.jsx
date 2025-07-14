@@ -4,21 +4,31 @@ import ClaimButton from './components/ClaimButton';
 import Leaderboard from './components/LeaderBoard';
 import History from './components/History';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function App() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [history, setHistory] = useState([]);
 
   const fetchUsers = async () => {
-    const res = await fetch("http://localhost:3000/api/users");
-    const data = await res.json();
-    setUsers(data);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/users`);
+      const data = await res.json();
+      setUsers(data);
+    } catch (err) {
+      console.error("Error fetching users:", err);
+    }
   };
 
   const fetchHistory = async () => {
-    const res = await fetch("http://localhost:3000/api/claim/history");
-    const data = await res.json();
-    setHistory(data);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/claim/history`);
+      const data = await res.json();
+      setHistory(data);
+    } catch (err) {
+      console.error("Error fetching history:", err);
+    }
   };
 
   useEffect(() => {
@@ -27,15 +37,20 @@ function App() {
   }, []);
 
   const handleClaim = async () => {
-    const res = await fetch("http://localhost:3000/api/claim", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: selectedUser }),
-    });
-    const data = await res.json();
-    await fetchUsers();
-    await fetchHistory();
-    alert(`${data.user.name} received ${data.points} points!`);
+    try {
+      const res = await fetch(`${BACKEND_URL}/api/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: selectedUser }),
+      });
+      const data = await res.json();
+      await fetchUsers();
+      await fetchHistory();
+      alert(`${data.user.name} received ${data.points} points!`);
+    } catch (err) {
+      console.error("Error claiming points:", err);
+      alert("Failed to claim points.");
+    }
   };
 
   return (
@@ -57,3 +72,4 @@ function App() {
 }
 
 export default App;
+
