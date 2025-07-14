@@ -8,7 +8,7 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
   const addUser = async () => {
     if (!newUser.trim()) return;
     try {
-      await fetch("http://localhost:3000/api/users", {
+      await fetch("https://leaderboard-gx7d.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newUser }),
@@ -26,7 +26,7 @@ const UserSelector = ({ users, selectedUser, setSelectedUser, onUserAdded }) => 
     if (!confirm) return;
 
     try {
-      await fetch(`http://localhost:3000/api/users/${id}`, {
+      await fetch(`https://leaderboard-gx7d.onrender.com${id}`, {
         method: "DELETE",
       });
       toast.success("User deleted!");
